@@ -89,6 +89,17 @@ describe('adapt()', () => {
       const nested = adapt('nested.number')
       expect(nested).to.eq(4)
     })
+
+    it('can return boolean values', () => {
+      const configuration = { boolean: false, nested: { boolean: true } }
+      const adapt = configureAdapt({ ...fake.options, configuration })
+
+      const root = adapt('boolean')
+      expect(root).to.eq(false)
+
+      const nested = adapt('nested.boolean')
+      expect(nested).to.eq(true)
+    })
   })
 
   context('with a selector that does not match a configuration key', () => {

@@ -6,7 +6,7 @@ function search({ data, selector, mode, origin }) {
   const properties = selector.split('.')
   const selected = select({ data, selector: properties[0], mode, origin })
 
-  if ([ 'string', 'number' ].includes(typeof(selected)) || Array.isArray(selected)) {
+  if ([ 'boolean', 'string', 'number' ].includes(typeof(selected)) || Array.isArray(selected)) {
     return selected
   }
 
@@ -19,7 +19,7 @@ function search({ data, selector, mode, origin }) {
 function select({ data, selector, mode, origin }) {
   let value = data[selector]
 
-  if (!value) {
+  if (typeof value === 'undefined') {
     const expanded = data[plural(selector)]
 
     try {
@@ -31,11 +31,11 @@ function select({ data, selector, mode, origin }) {
     }
   }
 
-  if (!value && origin) {
+  if (typeof value === 'undefined' && origin) {
     throw new Error(`[adapt] The selector '${ selector }' of '${ origin }' could not be found in the configuration.`)
   }
 
-  if (!value) {
+  if (typeof value === 'undefined') {
     throw new Error(`[adapt] The selector '${ selector }' could not be found in the configuration.`)
   }
 

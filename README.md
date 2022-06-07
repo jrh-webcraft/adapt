@@ -85,6 +85,8 @@ adapt('general.number') // => 5
 adapt('general.release_date') // => '2020-01-01'
 ```
 
+Supported types of values for normal keys are strings, booleans, numbers, and arrays.
+
 ### Special Keys
 
 ##### Plural Keys
