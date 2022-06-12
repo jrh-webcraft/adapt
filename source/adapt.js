@@ -1,4 +1,4 @@
-const { plural } = require('pluralize')
+import pluralize from 'pluralize'
 
 // ---------------------------------------------
 
@@ -20,7 +20,8 @@ function select({ data, selector, mode, origin }) {
   let value = data[selector]
 
   if (typeof value === 'undefined') {
-    const expanded = data[plural(selector)]
+    const pluralSelector = pluralize.plural(selector)
+    const expanded = data[pluralSelector]
 
     try {
       value = expanded && search({ data: expanded, selector: mode, mode })
@@ -44,7 +45,7 @@ function select({ data, selector, mode, origin }) {
 
 // ---------------------------------------------
 
-module.exports = ({ configuration, environment }) => {
+export default ({ configuration, environment }) => {
   if (!configuration || !environment) {
     throw new Error('Adapt must be configured with the configuration and environment objects.')
   }

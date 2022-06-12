@@ -1,3 +1,5 @@
+import configureAdapt from './adapt.js'
+
 // ---------------------------------------------
 
 const fake = {
@@ -13,8 +15,6 @@ const fake = {
 // ---------------------------------------------
 
 describe('configureAdapt()', () => {
-  const configureAdapt = require('./adapt')
-
   context('without configuration data', () => {
     it('throws an error', () => {
       expect(() => configureAdapt({ ...fake.options, configuration: null }))
@@ -47,8 +47,6 @@ describe('configureAdapt()', () => {
 // ---------------------------------------------
 
 describe('adapt()', () => {
-  const configureAdapt = require('./adapt')
-
   context('without a selector', () => {
     it('throws an error', () => {
       const adapt = configureAdapt(fake.options)
@@ -99,6 +97,17 @@ describe('adapt()', () => {
 
       const nested = adapt('nested.boolean')
       expect(nested).to.eq(true)
+    })
+
+    it('does not consider words ending in "ss" to be plural', () => {
+      const configuration = { assess: 'value', nested: { assess: 'value' } }
+      const adapt = configureAdapt({ ...fake.options, configuration })
+
+      const root = adapt('assess')
+      expect(root).to.eq('value')
+
+      const nested = adapt('nested.assess')
+      expect(nested).to.eq('value')
     })
   })
 
