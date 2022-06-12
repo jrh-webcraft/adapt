@@ -113,17 +113,19 @@ describe('adapt()', () => {
 
   context('with a selector that does not match a configuration key', () => {
     it('throws an error', () => {
-      expect(() => {
-        const configuration = {}
-        const adapt = configureAdapt({ ...fake.options, configuration })
-        adapt('key')
-      }).to.throw(/'key'.*could not be found/)
+      const environment = { mode: 'staging' }
 
       expect(() => {
-        const configuration = { api: {} }
-        const adapt = configureAdapt({ ...fake.options, configuration })
+        const configuration = {}
+        const adapt = configureAdapt({ ...fake.options, configuration, environment })
+        adapt('key')
+      }).to.throw(/'key'.*could not be found.*'staging'.*/)
+
+      expect(() => {
+        const configuration = { api: {}, environment }
+        const adapt = configureAdapt({ ...fake.options, configuration, environment })
         adapt('api.key') 
-      }).to.throw(/'key'.*'api.key'.*could not be found/)
+      }).to.throw(/'key'.*'api.key'.*could not be found.*'staging'.*/)
     })
   })
 

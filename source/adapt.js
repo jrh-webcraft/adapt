@@ -33,11 +33,11 @@ function select({ data, selector, mode, origin }) {
   }
 
   if (typeof value === 'undefined' && origin) {
-    throw new Error(`[adapt] The selector '${ selector }' of '${ origin }' could not be found in the configuration.`)
+    throw new Error(`[adapt] The selector '${ selector }' of '${ origin }' could not be found in the configuration in '${ mode }' mode.`)
   }
 
   if (typeof value === 'undefined') {
-    throw new Error(`[adapt] The selector '${ selector }' could not be found in the configuration.`)
+    throw new Error(`[adapt] The selector '${ selector }' could not be found in the configuration in '${ mode }' mode.`)
   }
 
   return value
