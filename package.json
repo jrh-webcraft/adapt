@@ -1,9 +1,12 @@
 {
   "name": "@jrh/adapt",
   "type": "module",
-  "version": "4.1.0",
+  "version": "5.5.0",
   "description": "Flexible configuration and environment variable management for Node.js applications.",
   "main": "source/adapt.js",
+  "bin": {
+    "adapt-setup": "./source/setup/setup.action.js"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:jrh-webcraft/adapt.git"
@@ -16,6 +19,7 @@
     "mocha": "^9.2.1"
   },
   "dependencies": {
+    "@jrh/to": "^1.0.0",
     "pluralize": "^8.0.0"
   }
 }
